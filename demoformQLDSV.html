@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Điểm Sinh Viên</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Quản Lý Điểm Sinh Viên</h2>
+    <form action="/submit" method="post">
+        <label for="studentId">Mã Sinh Viên:</label>
+        <input type="text" id="studentId" name="studentId" required>
+
+        <label for="subject">Tên Môn Học:</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="midtermScore">Điểm Giữa Kỳ:</label>
+        <input type="number" id="midtermScore" name="midtermScore" step="0.1" required>
+
+        <label for="finalScore">Điểm Cuối Kỳ:</label>
+        <input type="number" id="finalScore" name="finalScore" step="0.1" required>
+
+        <label for="averageScore">Điểm Trung Bình:</label>
+        <input type="number" id="averageScore" name="averageScore" step="0.1" readonly>
+
+        <label for="classification">Xếp Loại:</label>
+        <select id="classification" name="classification">
+            <option value="Xuất sắc">Xuất sắc</option>
+            <option value="Giỏi">Giỏi</option>
+            <option value="Khá">Khá</option>
+            <option value="Trung bình">Trung bình</option>
+            <option value="Yếu">Yếu</option>
+        </select>
+
+        <button type="submit">Lưu</button>
+    </form>
+
+    <script>
+        const midtermInput = document.getElementById('midtermScore');
+        const finalInput = document.getElementById('finalScore');
+        const averageInput = document.getElementById('averageScore');
+
+        function calculateAverage() {
+            const midtermScore = parseFloat(midtermInput.value) || 0;
+            const finalScore = parseFloat(finalInput.value) || 0;
+            const averageScore = (midtermScore + finalScore) / 2;
+            averageInput.value = averageScore.toFixed(2);
+        }
+
+        midtermInput.addEventListener('input', calculateAverage);
+        finalInput.addEventListener('input', calculateAverage);
+    </script>
+</body>
+</html>
